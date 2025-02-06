@@ -1,10 +1,8 @@
 ﻿using OfficeOpenXml;
 using System;
-using System.Configuration;
 using System.Data;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -12,7 +10,7 @@ namespace ExportadorInventario
 {
     public partial class frmMain : Form
     {
-        public string titulo = ConfigurationManager.AppSettings["appTitle"];
+
         DataTable produtos = null;
         public frmMain()
         {
