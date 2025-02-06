@@ -7,7 +7,7 @@ namespace ExportadorInventario
     {
         public ToolTip tool = new ToolTip { ShowAlways = true, InitialDelay = 200 };
         public bool isConOkay = false;
-        frmMain pai = null;
+        public frmMain pai = null;
 
         public frmDBConfig(frmMain pai)
         {
@@ -48,9 +48,26 @@ namespace ExportadorInventario
 
         private void btSaveConfig_Click(object sender, EventArgs e)
         {
-            ConfigReader.isNeededTest = false;
-            pai.ApllyConfig();
-            this.Close();
+            try
+            {
+                ConfigReader.isNeededTest = false;
+                string host = txtHost.Text;
+                string port = txtPort.Text;
+                string user = txtUser.Text;
+                string pwd = txtPwd.Text;
+
+                ConfigReader.dbhost = host;
+                ConfigReader.dbport = port;
+                ConfigReader.dbuser = user;
+                ConfigReader.dbpwd = pwd;
+
+                pai.ApllyConfig();
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                Funcoes.ErrorMessage(ex.Message);
+            }
         }
 
         private void ChangeInputTest(object sender, KeyEventArgs e)

@@ -14,8 +14,14 @@ namespace ExportadorInventario
             string password = ConfigReader.dbpwd;
             string port = ConfigReader.dbport;
 
-
-            con = new SqlConnection(string.Format(@"Data Source={0},{1};Initial Catalog=Etrade; User ID={2};Password={3};TrustServerCertificate=True;", host, port, dbuser, password));
+            if (port == string.Empty)
+            {
+                con = new SqlConnection(string.Format(@"Data Source={0};Initial Catalog=Etrade; User ID={1};Password={2};TrustServerCertificate=True;", host, dbuser, password));
+            }
+            else
+            {
+                con = new SqlConnection(string.Format(@"Data Source={0},{1};Initial Catalog=Etrade; User ID={2};Password={3};TrustServerCertificate=True;", host, port, dbuser, password));
+            }
             con.Open();
         }
         public static void ReConnect()
@@ -32,7 +38,14 @@ namespace ExportadorInventario
             try
             {
                 SqlConnection conTest = new SqlConnection();
-                conTest = new SqlConnection(string.Format(@"Data Source={0},{1};Initial Catalog=Etrade; User ID={2};Password={3};TrustServerCertificate=True;", host, port, user, pwd));
+
+                if(port == string.Empty)
+                {
+                    conTest = new SqlConnection(string.Format(@"Data Source={0};Initial Catalog=Etrade; User ID={1};Password={2};TrustServerCertificate=True;", host, user, pwd));
+                }else
+                {
+                    conTest = new SqlConnection(string.Format(@"Data Source={0},{1};Initial Catalog=Etrade; User ID={2};Password={3};TrustServerCertificate=True;", host, port, user, pwd));
+                }
                 conTest.Open();
                 conTest.Close();
 
